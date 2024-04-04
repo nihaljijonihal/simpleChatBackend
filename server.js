@@ -2,12 +2,12 @@ const express = require("express");
 const { createServer } = require("http");
 const socket = require("socket.io");
 
-const PORT =  process.env.PORT
+const PORT =  process.env.PORT || 3000;
 const app = express();
 const server = createServer(app);
 const io = socket(server, {
   cors: {
-    origin: "https://simple-chat-app-frontend.vercel.app/",
+    origin: "*",
   },
 });
 
@@ -42,7 +42,6 @@ io.on("connection", (socket) => {
     io.emit("userLeftToast", { leftUserName, leftUserId });
   });
 });
-
 server.listen(PORT, () => {
-  console.log(`Server is listening at port ${PORT}...`);
+  console.log(`Server is listening at port=> ${PORT}...`);
 });
